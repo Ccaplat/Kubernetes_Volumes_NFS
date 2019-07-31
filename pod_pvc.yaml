@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  volumes:
+  - name: mytest-volume # this name can be anything
+    persistentVolumeClaim:
+      claimName: pvclaim-test # same name of pvc that this pod will use
+  containers:
+  - image: nginx
+    name: nginx
+    command: ["/bin/bash"] # run a command inside container
+    args: ["-c", "sleep 600"]
+    volumeMounts: # inside the container volume must match
+    - name: mytest-volume # must match volume defined in volume:
+      mountPath: /myvolume # name of folder inside the cluster

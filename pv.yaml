@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-test
+  labels:
+    volume: local  # description of volume which is local
+spec:
+  storageClassName: manual
+  # persistentVolumeReclaimPolicy: Retain or Delete if do not want to use default
+  # automatic delete only works if path set to /tmp/
+  capacity:
+    storage: 100Mi
+  accessModes:
+    - ReadWriteOnce # permision only on one node
+  hostPath:
+    path: "/myvolume"
+    # path: "/tmp/myvolume" if pvcPolicy set to delete
